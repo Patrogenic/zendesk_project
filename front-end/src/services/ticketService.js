@@ -8,4 +8,8 @@ const getAll = async () => {
   return response.data;
 }
 
-export default { getAll }
+const ticketService = {
+  getAll
+}
+
+export default ticketService

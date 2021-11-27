@@ -6,9 +6,16 @@
 const supertest = require('supertest');
 const app = require('../app');
 const { default: axios } = require('axios');
+const logger = require('../utils/logger')
 const api = supertest(app);
 
 describe('ticketsRouter', () => {
+
+  //mocking the logger for the tests for cleaner test results
+  beforeEach(() => {
+    logger.info = jest.fn();
+  });
+
   it('should send status code of 200 and return tickets as json', async () => {
     //mocking get requests to zendesk api
     axios.get = jest.fn().mockReturnValue({ data: { tickets: [] } });

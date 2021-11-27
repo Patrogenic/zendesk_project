@@ -15,7 +15,7 @@ const Page = React.forwardRef(({ tickets, onTicketChange }, ref) => {
 
   useEffect(() => {
     onTicketChange(currTicket);
-  }, [currTicket])
+  }, [currTicket, onTicketChange])
 
   useImperativeHandle(ref, () => {
     return {currTicket};

@@ -14,6 +14,26 @@ const PageManager = ({ tickets }) => {
   const [ showButtons, setShowButtons ] = useState(true)
 
   useEffect(() => {
+    //creates an array of Page elements using ticket data partitioned by PAGE_SIZE
+    const createPages = () => {
+      let tempPages = [];
+  
+      for(let i = 0; i < tickets.length / PAGE_SIZE; i++){
+        let startIndex = i * PAGE_SIZE;
+  
+        if((startIndex + (i + PAGE_SIZE)) > tickets.length){
+          tempPages.push(<Page key={i} onTicketChange={handleTicketChange} tickets={tickets.slice(startIndex, tickets.length)} />);
+        }else{
+          tempPages.push(<Page key={i} onTicketChange={handleTicketChange} tickets={tickets.slice(startIndex, startIndex + PAGE_SIZE)} />);
+        }
+      }
+      setPages(tempPages);
+  
+      if(tempPages.length > 1){
+        setNextBtnActive(true);
+      }
+    }
+    
     createPages();
   }, [tickets]);
 
@@ -21,25 +41,6 @@ const PageManager = ({ tickets }) => {
     ticketValue > -1 ? setShowButtons(false) : setShowButtons(true);
   }
 
-  //creates an array of Page elements using ticket data partitioned by PAGE_SIZE
-  const createPages = () => {
-    let tempPages = [];
-
-    for(let i = 0; i < tickets.length / PAGE_SIZE; i++){
-      let startIndex = i * PAGE_SIZE;
-
-      if((startIndex + (i + PAGE_SIZE)) > tickets.length){
-        tempPages.push(<Page key={i} onTicketChange={handleTicketChange} tickets={tickets.slice(startIndex, tickets.length)} />);
-      }else{
-        tempPages.push(<Page key={i} onTicketChange={handleTicketChange} tickets={tickets.slice(startIndex, startIndex + PAGE_SIZE)} />);
-      }
-    }
-    setPages(tempPages);
-
-    if(tempPages.length > 1){
-      setNextBtnActive(true);
-    }
-  }
 
   const onPagePrevClick = (event) => {
     setActivePage(activePage - 1);
