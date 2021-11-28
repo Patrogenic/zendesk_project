@@ -14,7 +14,7 @@ const PageManager = ({ tickets }) => {
   const [ showButtons, setShowButtons ] = useState(true)
 
   useEffect(() => {
-    //creates an array of Page elements using ticket data partitioned by PAGE_SIZE
+    //creates an array of Page elements using ticket data, dividing pages by PAGE_SIZE
     const createPages = () => {
       let tempPages = [];
   
@@ -40,7 +40,6 @@ const PageManager = ({ tickets }) => {
   const handleTicketChange = (ticketValue) => {
     ticketValue > -1 ? setShowButtons(false) : setShowButtons(true);
   }
-
 
   const onPagePrevClick = (event) => {
     setActivePage(activePage - 1);
